@@ -1,12 +1,11 @@
-/* The following is an example on how you might structure your code.
-This is not the only way to complete this assignment.
-Feel free to disregard and create your own code */
-
-
+//Modified by: Ali Daneshmand
+//Modified On: September 22, 2021
 
 // Define function that will run on page load
 function init() 
 {
+
+	var mydata = JSON.parse(sample);
 
 	var out = "";
 	var i;
@@ -16,13 +15,7 @@ function init()
 
 	document.getElementById("id01").innerHTML = out;
 
-    // Read json data
-
-        // Parse and filter data to get sample names
-
-        // Add dropdown option for each sample
-
-    // Call functions below using the first sample to build metadata and initial plots
+	return out;
 
 }
 
@@ -31,6 +24,16 @@ function init()
 // Define a function that will create metadata for given sample
 function buildMetadata(sample) 
 {
+
+        var out = "";
+        var i;
+
+        for(i = 0; i < sample.length; i++)
+        {out += '<a href="' + sample[i].url + '">' + sample[i].display + '</a><br>';}
+
+        document.getElementById("id01").innerHTML = out;
+
+	return out;
 
     // Read the json data
 
@@ -83,6 +86,21 @@ function optionChanged(sample)
 
 }
 
+function selDataset(sample)
+{
+
+	var json = require('./sample.json');
+
+	var readJson = (path, cb) => {
+
+	fs.readFile(require.resolve(path), (err, data) => {
+	if (err)
+		cb(err)
+	else
+		cb(null, JSON.parse(data))
+  	})
+	}
+}
+
 // Initialize dashboard on page load
 init();
-
